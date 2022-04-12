@@ -9,24 +9,25 @@ import { environment } from 'src/environments/environment';
 })
 export class CatsComponent implements OnInit {
 
-  info='';
+  info:string[]=[];
   error: boolean=false;
 
   constructor(httpClient:HttpClient) { 
     httpClient.get('https://cat-fact.herokuapp.com/facts').subscribe(
      /*next*/ (value:any)=>{
        for (const iterator of value) {
-         this.info+=iterator.text+'\n';
-         
+         this.info.push(iterator.text);
        }
        
      },
       /*error*/(value:any)=>{
-        this.info='An error occured! :(';
+        //this.info='An error occured! :(';
         this.error=true;
       },
       ()=>{
         //this.info='completed'
+        console.log(this.info);
+        
       }
      );
   }
